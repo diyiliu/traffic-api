@@ -1,0 +1,75 @@
+group 'com.tiza'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    springBootVersion = '2.1.0.RELEASE'
+    swaggerVersion = '2.9.2'
+}
+
+dependencies {
+    // spring-boot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: "$springBootVersion"
+
+    // spring-cloud
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '1.4.6.RELEASE'
+
+    // other
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.2'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.36'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:"$swaggerVersion"
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "$swaggerVersion"
+    
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+bootJar {
+    baseName = 'traffic-violation'
+    version = ''
+}
+
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
+    }
+}
+
+

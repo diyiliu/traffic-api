@@ -1,0 +1,21 @@
+# https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/#common-application-properties
+server:
+  port: 3280
+
+# spring cloud
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.163:8100/eureka/
+
+# spring config
+spring:
+  # datasource
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: 'jdbc:mysql://192.168.1.161:3306/traffic_violation?useUnicode=true&characterEncoding=UTF-8'
+    username: root
+    password: 123456
